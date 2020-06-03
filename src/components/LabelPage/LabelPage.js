@@ -2,31 +2,29 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { withStyles } from 'material-ui/styles';
-import LightbulbOutline from 'material-ui-icons/LightbulbOutline';
 import Typography from 'material-ui/Typography';
-import AddNoteForm from '../AddNoteForm';
-import NotesList from '..//NotesList/NotesList';
+import LabelIcon from 'material-ui-icons/Label';
+import NotesList from '../NotesList/NotesList';
 import styles from './styles';
 
-const HomePage = ({ classes, notes, count, deleteNote }) => (
+const LabelPage = ({ classes, notes, deleteNote }) => (
   <React.Fragment>
-    <AddNoteForm />
-    {count ? (
-      <NotesList notes={notes} deleteNote={deleteNote} homeList />
+    {notes.length ? (
+      <NotesList notes={notes} deleteNote={deleteNote} labelList />
     ) : (
       <div className={classes.infoBlock}>
-        <LightbulbOutline className={classes.infoIcon} color="inherit" />
+        <LabelIcon className={classes.infoIcon} color="inherit" />
         <Typography variant="headline" color="inherit" gutterBottom>
-          Your notes will be here.
+          No notes with this label.
         </Typography>
       </div>
     )}
   </React.Fragment>
 );
 
-HomePage.propTypes = {
+LabelPage.propTypes = {
   classes: PropTypes.object.isRequired,
-  notes: PropTypes.objectOf(
+  notes: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       title: PropTypes.string,
@@ -34,8 +32,7 @@ HomePage.propTypes = {
       color: PropTypes.string.isRequired
     })
   ).isRequired,
-  count: PropTypes.number.isRequired,
   deleteNote: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(HomePage);
+export default withStyles(styles)(LabelPage);

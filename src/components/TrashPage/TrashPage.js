@@ -2,29 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { withStyles } from 'material-ui/styles';
-import LightbulbOutline from 'material-ui-icons/LightbulbOutline';
+import TrashIcon from 'material-ui-icons/Delete';
 import Typography from 'material-ui/Typography';
-import AddNoteForm from '../AddNoteForm';
-import NotesList from '..//NotesList/NotesList';
+import NotesList from '../NotesList/NotesList';
 import styles from './styles';
 
-const HomePage = ({ classes, notes, count, deleteNote }) => (
+const TrashPage = ({ classes, notes, count, deleteFromTrash }) => (
   <React.Fragment>
-    <AddNoteForm />
     {count ? (
-      <NotesList notes={notes} deleteNote={deleteNote} homeList />
+      <NotesList notes={notes} deleteFromTrash={deleteFromTrash} trashList />
     ) : (
       <div className={classes.infoBlock}>
-        <LightbulbOutline className={classes.infoIcon} color="inherit" />
+        <TrashIcon className={classes.infoIcon} color="inherit" />
         <Typography variant="headline" color="inherit" gutterBottom>
-          Your notes will be here.
+          There is nothing in the trash.
         </Typography>
       </div>
     )}
   </React.Fragment>
 );
 
-HomePage.propTypes = {
+TrashPage.propTypes = {
   classes: PropTypes.object.isRequired,
   notes: PropTypes.objectOf(
     PropTypes.shape({
@@ -35,7 +33,7 @@ HomePage.propTypes = {
     })
   ).isRequired,
   count: PropTypes.number.isRequired,
-  deleteNote: PropTypes.func.isRequired
+  deleteFromTrash: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(HomePage);
+export default withStyles(styles)(TrashPage);
